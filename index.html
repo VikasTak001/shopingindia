@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+</head>
+
+<body class="bg-black text-white select-none overflow-x-hidden">
+  <div id="root" class=""></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+<!-- remove robo logo start-->
+<script>
+  function removeOverlay() {
+    const interval = setInterval(() => {
+      const viewer = document.querySelector('spline-viewer');
+      if (viewer && viewer.shadowRoot) {
+        const shadow = viewer.shadowRoot;
+        const overlay = shadow.querySelector('#logo');
+        if (overlay) {
+          overlay.remove();
+          console.log('Overlay removed.');
+          // clearInterval(interval);
+        }
+      }
+    }, 300);
+  }
+  removeOverlay();
+</script>
+<!-- remove robo logo end-->
+
+</html>

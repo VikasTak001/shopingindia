@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::-webkit-scrollbar {
+    width: 0px;
+}
+
+.btn-parent {
+    background: linear-gradient(70deg, red, blue, rgb(56, 56, 56), rgb(56, 56, 56), blue, red);
+    padding: 3px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px rgba(189, 185, 185, 0.185);
+    animation: animate 2s linear infinite;
+    background-size: 200%;
+    width: max-content;
+}
+
+.btn-child {
+    border-radius: 50px;
+    padding: 10px 100px;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes animate {
+    to {
+        background-position: 200%;
+    }
+}
+
+.header-color {
+    transition: 0.3s ease;
+}
+
+.header-color:hover {
+    color: rgb(188, 170, 255);
+    transform: scale(1.05);
+}
+
+.header-color-heading {
+    transition: 0.3s ease;
+}
+
+.header-color-heading:hover {
+    color: rgb(165, 158, 192);
+}
+
+.blur-bg {
+    backdrop-filter: blur(10px);
+    background-color: rgba(2, 1, 1, 0.212);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100%;
+    height: 70px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.menu-label{
+    display:flex;
+     flex-direction:column;
+     width:70px;
+     transform: scale(0.4);
+     cursor:pointer;
+   }
+   
+   .menu-span{
+     background: #fff;
+     border-radius:10px;
+     height:7px;
+     margin: 7px 0;
+     transition: .4s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
+   
+   }
+   
+   
+   .meni-span-1{
+     width:50%;
+     
+   }
+   
+   .meni-span-2{
+     width:100%;
+   }
+   
+   
+   .meni-span-3{
+     width:75%;
+    
+   }
+   
+   
+   .menu-input[type="checkbox"]{
+     display:none;
+   }
+   
+   
+   .menu-input[type="checkbox"]:checked ~ .meni-span-1{
+     transform-origin:bottom;
+     transform:rotatez(45deg) translate(8px,0px)
+   }
+   
+   
+   .menu-input[type="checkbox"]:checked ~ .meni-span-2{
+     
+     transform-origin:top;
+     transform:rotatez(-45deg)
+   }
+   
+   
+   .menu-input[type="checkbox"]:checked ~ .meni-span-3{
+     
+     transform-origin:bottom;
+     width:50%;
+     transform: translate(30px,-11px) rotatez(45deg);
+   
+   }
+   
