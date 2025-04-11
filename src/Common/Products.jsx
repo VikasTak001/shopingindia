@@ -1,30 +1,45 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import Filter from './Filter';
 
-export default function Products({ slug }) {
+export default function Products({ slug, FilterData }) {
+  const [loading, setLoading] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(10);
-  const [allProductsofApi,setAllProductsofApi] = useState();
+  const [allProductsofApi, setAllProductsofApi] = useState();
   let apiUrl;
   if (slug !== undefined) {
     apiUrl = "https://dummyjson.com/products/category/" + slug;
   } else {
     apiUrl = `https://dummyjson.com/products?limit=${totalProducts}`;
   }
-  axios.get(`https://dummyjson.com/products?limit=999`).then((succes)=>{
+  axios.get(`https://dummyjson.com/products?limit=999`).then((succes) => {
     setAllProductsofApi(succes.data.products?.length);
   })
   const apiFatch = () => {
     axios.get(apiUrl).then((res) => {
-      setAllProducts(res.data.products);
+      const finalData = res.data.products.filter(
+        (product, index) => {
+          if (product.rating >= FilterData.rating && FilterData.priceFrom <= product.price && FilterData.priceTo >= product.price) {
+            return true;
+          }
+        }
+       
+      )
+      setAllProducts(finalData);
     }).catch((err) => {
       console.log(err);
     })
   }
+  setTimeout(
+    ()=>{
+      setLoading(true)
+    },1500
+  )
   useEffect(() => {
     apiFatch();
-  }, [slug,totalProducts])
+  }, [slug, totalProducts, FilterData])
   return (
     <>
       <div className="xl:col-span-5 mx-2 md:col-span-4 col-span-6 my-[70px]">
@@ -33,14 +48,14 @@ export default function Products({ slug }) {
           {
             allProducts.map((item, index) => {
               return (
-                <ProductCard key={index} item={item} />
+                loading ? <ProductCard key={index} item={item} /> : <LoadingProduct key={index} />
               )
             })
           }
         </div>
         <div className="mx-auto w-max">
-        <button
-          className={`
+          <button
+            className={`
               mt-8 px-6 py-3 
               bg-[#000000] border-2 border-[#ffffff42]
               text-white font-semibold text-lg
@@ -50,9 +65,9 @@ export default function Products({ slug }) {
               hover:scale-105 hover:-translate-y-1 active:scale-95
               hover:bg-blue-500 hover:border-blue-500
               focus:outline-none focus:ring-2 focus:ring-blue-500/50
-              ${totalProducts <=  allProductsofApi ? "block":"hidden"}
+              ${totalProducts <= allProductsofApi ? "block" : "hidden"}
             `} onClick={() => setTotalProducts(totalProducts + 10)}>Load More
-        </button>
+          </button>
         </div>
       </div>
     </>
@@ -60,13 +75,16 @@ export default function Products({ slug }) {
 }
 const ProductCard = ({ item }) => {
   return (
-    <div className="bg-[black] text-white rounded-2xl p-4 border border-[#ffffff42] flex flex-col justify-between h-[540px] transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1">
+
+    <div className="bg-[#000000] overflow-hidden text-white rounded-2xl p-4 border border-[#ffffff42] flex flex-col justify-between h-[max] transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1">
       <Link to={`/productdetails/${item.id}`}>
-        <img
-          src={item.thumbnail}
-          alt={item.title}
-          className="w-full h-[250px] object-cover rounded-xl mb-4 transition-transform duration-300 hover:scale-105"
-        />
+        <div className="relative w-full h-[250px]">
+          <img
+            src={item.thumbnail}
+            alt={item.title}
+            className="w-[100%] h-[450px] absolute top-[-50%] sm:scale-x-90 md:scale-x-75 scale-y-50 xl:scale-x-75 mb-4 transition-transform duration-300 md:hover:scale-x-[.8] md:hover:scale-y-[.55]"
+          />
+        </div>
         <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
         <p className="text-gray-400 mb-1 text-2xl">
           Price: <span className="text-white">${item.price}</span>
@@ -87,3 +105,31 @@ const ProductCard = ({ item }) => {
     </div>
   );
 };
+const LoadingProduct = () => {
+  return (
+    <div className="bg-[#000000] overflow-hidden text-white rounded-2xl p-4 border border-[#ffffff42] flex flex-col justify-between h-[max] animate-pulse">
+      <div className="relative w-full h-[250px] bg-gray-800 rounded-xl mb-4">
+        {/* Simulated image loading */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-700 rounded-xl"></div>
+      </div>
+
+      {/* Title */}
+      <div className="h-6 bg-gray-700 rounded w-3/4 mb-3"></div>
+
+      {/* Price */}
+      <div className="h-5 bg-gray-700 rounded w-1/2 mb-2"></div>
+
+      {/* Rating */}
+      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+
+      {/* Category */}
+      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+
+      {/* Brand */}
+      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+
+      {/* Button */}
+      <div className="mt-4 h-10 bg-gray-700 rounded-lg w-full"></div>
+    </div>
+  )
+}
