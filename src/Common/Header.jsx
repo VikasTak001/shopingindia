@@ -36,8 +36,8 @@ export default function Header() {
                 <span className='meni-span-2 menu-span'  onClick={tglChanger}></span>
                 <span className='meni-span-3 menu-span'  onClick={tglChanger}></span>
               </label> 
-              <div className={`blur-bg absolute w-[250px!important] top-[5px] right-0 bg-[#a7a7a715!important] rounded-2xl h-[200px!important] transition duration-500  ${toggle ? 'opacity-100':'opacity-0'}`}></div>
-              <div className={`md:hidden top-[5px] w-[250px!important] right-0 h-[200px] p-5 px-9 flex justify-between items-start flex-col gap-2 absolute z-30 transition duration-500  ${toggle ? 'opacity-100':'opacity-0'}`}>
+              <div className={`blur-bg absolute w-[250px!important] top-[5px] right-0 bg-[#a7a7a715!important] rounded-2xl h-[200px!important] transition duration-500 z-[20!important]  ${toggle ? 'opacity-100 visible':'opacity-0 invisible'}`}></div>
+              <div className={`md:hidden top-[5px] w-[250px!important] right-0 h-[200px] p-5 px-9 flex justify-between items-start flex-col gap-2 absolute z-30 transition duration-500  ${toggle ? 'opacity-100 visible':'opacity-0 invisible'}`}>
                 <Link to={'/'} className='header-color'>
                   Home
                 </Link>
