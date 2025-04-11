@@ -1,6 +1,6 @@
 {
   "name": "09-04-25-ecommerce-web",
-  "homepage": "https://VikasTak.github.io/Shoping-india/",
+  "homepage": "https://vikastak001.github.io/shopingindia/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy":"npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
