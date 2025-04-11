@@ -36,7 +36,9 @@ export default function App() {
           }
         ]
       }
-    ]
+    ],{
+      basename: "/shopingindia"
+    }
   )
   return (
     <>
