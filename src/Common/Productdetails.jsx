@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function Productdetails() {
     const { id } = useParams();
@@ -14,6 +14,14 @@ export default function Productdetails() {
     return (
         <>
             <div className="max-w-6xl my-2 md:my-10 mx-3 md:mx-auto bg-gray-800 p-8 rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-black">
+                <Link to={'/shop'}>
+            <button
+                    onClick={() => navigate(-1)}
+                    className="mb-6 text-white bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg shadow hover:shadow-md transition"
+                >
+                    ← Back
+                </button>
+                </Link>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {/* Image Section */}
                     <div>
