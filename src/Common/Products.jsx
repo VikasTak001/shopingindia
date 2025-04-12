@@ -66,13 +66,13 @@ export default function Products({ slug, FilterData }) {
           <button
             className={`
               mt-8 px-6 py-3 
-              bg-[#000000] border-2 border-[#ffffff42]
+              bg-blue-500 border-2 border-[#ffffff42]
               text-white font-semibold text-lg
               rounded-xl 
               shadow-md hover:shadow-lg 
               transform transition-all duration-300 ease-in-out
               hover:scale-105 hover:-translate-y-1 active:scale-95
-              hover:bg-blue-500 hover:border-blue-500
+              hover:bg-blue-500 hover:border-[blue]
               focus:outline-none focus:ring-2 focus:ring-blue-500/50
               ${totalProducts <= allProductsofApi ? "block" : "hidden"}
             `} onClick={loadmore}>Load More
@@ -85,7 +85,7 @@ export default function Products({ slug, FilterData }) {
 const ProductCard = ({ item }) => {
   return (
 
-    <div className="bg-[#000000] overflow-hidden text-white rounded-2xl p-4 border border-[#ffffff42] flex flex-col justify-between h-[max] transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1">
+    <div className="bg-[#ffffff] overflow-hidden rounded-2xl p-4 border flex flex-col justify-between h-[max] shadow-xl transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1">
       <Link to={`/productdetails/${item.id}`}>
         <div className="relative w-full h-[250px]">
           <img
@@ -95,20 +95,20 @@ const ProductCard = ({ item }) => {
           />
         </div>
         <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
-        <p className="text-gray-400 mb-1 text-2xl">
+        <p className="mb-1 text-2xl">
           Price: <span className="text-white">${item.price}</span>
         </p>
-        <p className="text-gray-400 mb-1">
+        <p className=" mb-1">
           Rating: <span className="text-orange-500">{item.rating}/5</span>
         </p>
-        <p className="text-gray-400 mb-1">
+        <p className=" mb-1">
           Category: <span className="text-white">{item.category}</span>
         </p>
-        <p className="text-gray-400">
+        <p className="">
           Brand: <span className="text-white">{item.brand}</span>
         </p>
       </Link>
-      <button className="rounded-lg px-4 py-2 mt-4 shadow-lg bg-blue-500 transition-all duration-300 hover:bg-blue-600 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-0 active:shadow-md">
+      <button className="rounded-lg px-4 py-2 mt-4 shadow-lg bg-blue-500 transition-all text-white duration-300 hover:bg-blue-600 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-0 active:shadow-md">
         Add Cart
       </button>
     </div>
@@ -116,29 +116,29 @@ const ProductCard = ({ item }) => {
 };
 const LoadingProduct = () => {
   return (
-    <div className="bg-[#000000] overflow-hidden text-white rounded-2xl p-4 border border-[#ffffff42] flex flex-col justify-between h-[max] animate-pulse">
-      <div className="relative w-full h-[250px] bg-gray-800 rounded-xl mb-4">
+    <div className="bg-[#ffffff] overflow-hidden text-white rounded-2xl p-4 border border-[#00000042] shadow-xl flex flex-col justify-between h-[max] animate-pulse">
+      <div className="relative w-full h-[250px] bg-[#c4c4c4] rounded-xl mb-4">
         {/* Simulated image loading */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gray-700 rounded-xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[#c4c4c4] rounded-xl"></div>
       </div>
 
       {/* Title */}
-      <div className="h-6 bg-gray-700 rounded w-3/4 mb-3"></div>
+      <div className="h-6 bg-[#c4c4c4] rounded w-3/4 mb-3"></div>
 
       {/* Price */}
-      <div className="h-5 bg-gray-700 rounded w-1/2 mb-2"></div>
+      <div className="h-5 bg-[#c4c4c4] rounded w-1/2 mb-2"></div>
 
       {/* Rating */}
-      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+      <div className="h-5 bg-[#c4c4c4] rounded w-1/3 mb-2"></div>
 
       {/* Category */}
-      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+      <div className="h-5 bg-[#c4c4c4] rounded w-1/3 mb-2"></div>
 
       {/* Brand */}
-      <div className="h-5 bg-gray-700 rounded w-1/3 mb-2"></div>
+      <div className="h-5 bg-[#c4c4c4] rounded w-1/3 mb-2"></div>
 
       {/* Button */}
-      <div className="mt-4 h-10 bg-gray-700 rounded-lg w-full"></div>
+      <div className="mt-4 h-10 bg-[#c4c4c4] rounded-lg w-full"></div>
     </div>
   )
 }

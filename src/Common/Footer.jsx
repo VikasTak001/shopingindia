@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1b1b1b48] text-gray-300 py-10 overflow-x-hidden">
+    <footer className="text-black py-10 overflow-x-hidden border-t-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo or Name */}
-          <div className="text-xl font-semibold text-white">
+          <div className="text-xl font-semibold">
             Shoping India
           </div>
 

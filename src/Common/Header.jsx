@@ -7,10 +7,21 @@ export default function Header() {
     setToggle(!toggle);
     console.log(toggle);
   }
+  window.addEventListener(
+    "scroll",
+    () => {
+      const header = document.querySelector("#header");
+      if(window.scrollY > 60){
+        header.classList.add('bg-[#0000ff1f]');
+      }else{
+        header.classList.remove('bg-[#0000ff1f]');
+      }
+    }
+  )
   return (
     <>
       <header className='sticky p-4 z-1  max-w-[1340px] items-center bg-blur mx-auto z-[20] transparent top-0 left-0 z-2'>
-      <div className='blur-bg bg-[#e7e7e79c] fixed top-0 left-0 w-screen h-full'></div>
+      <div className={`blur-bg fixed top-0 left-0 w-screen h-full transition duration-300`} id='header'></div>
         <div className='flex justify-between'>
           <Link to={'/'}>
             <div className="text-3xl font-semibold header-color-heading relative z-10">Shoping India</div>

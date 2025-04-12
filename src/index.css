@@ -11,7 +11,7 @@
     padding: 3px;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0px 0px 10px 2px rgba(189, 185, 185, 0.185);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.336);
     animation: animate 2s linear infinite;
     background-size: 200%;
     width: max-content;
@@ -36,7 +36,7 @@
 }
 
 .header-color:hover {
-    color: rgb(188, 170, 255);
+    color: rgb(54, 28, 150);
     transform: scale(1.05);
 }
 
@@ -45,12 +45,11 @@
 }
 
 .header-color-heading:hover {
-    color: rgb(165, 158, 192);
+    color: rgb(48, 26, 136);
 }
 
 .blur-bg {
     backdrop-filter: blur(10px);
-    background-color: rgba(2, 1, 1, 0.212);
     -webkit-backdrop-filter: blur(10px);
     width: 100%;
     height: 70px;
