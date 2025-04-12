@@ -25,18 +25,27 @@ export default function Products({ slug, FilterData }) {
             return true;
           }
         }
-       
+
       )
       setAllProducts(finalData);
     }).catch((err) => {
       console.log(err);
     })
   }
-  setTimeout(
-    ()=>{
-      setLoading(true)
-    },1500
-  )
+  const loadingtimeou = () => {
+    setTimeout(
+      () => {
+        setLoading(true)
+      }, 1500
+    )
+  }
+  const loadmore = ()=>{
+    setTotalProducts(totalProducts + 10) ;
+    setLoading(!loading);
+  }
+  useEffect(() => {
+    loadingtimeou();
+  }, [loading])
   useEffect(() => {
     apiFatch();
   }, [slug, totalProducts, FilterData])
@@ -66,7 +75,7 @@ export default function Products({ slug, FilterData }) {
               hover:bg-blue-500 hover:border-blue-500
               focus:outline-none focus:ring-2 focus:ring-blue-500/50
               ${totalProducts <= allProductsofApi ? "block" : "hidden"}
-            `} onClick={() => setTotalProducts(totalProducts + 10)}>Load More
+            `} onClick={loadmore}>Load More
           </button>
         </div>
       </div>
