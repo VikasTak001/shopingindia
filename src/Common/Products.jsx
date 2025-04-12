@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Filter from './Filter';
 
-export default function Products({ slug, FilterData }) {
-  const [loading, setLoading] = useState(false);
+export default function Products({ slug, FilterData,loading,setLoading }) {
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(10);
   const [allProductsofApi, setAllProductsofApi] = useState();
   let apiUrl;
   if (slug !== undefined) {
-    apiUrl = "https://dummyjson.com/products/category/" + slug;
+    apiUrl = `https://dummyjson.com/products/category/${slug}?limit=${totalProducts}`;
   } else {
     apiUrl = `https://dummyjson.com/products?limit=${totalProducts}`;
   }
@@ -28,24 +27,14 @@ export default function Products({ slug, FilterData }) {
 
       )
       setAllProducts(finalData);
+      setLoading(true);
     }).catch((err) => {
       console.log(err);
     })
   }
-  const loadingtimeou = () => {
-    setTimeout(
-      () => {
-        setLoading(true)
-      }, 1500
-    )
+  const loadmore = () => {
+    setTotalProducts(totalProducts + 10);
   }
-  const loadmore = ()=>{
-    setTotalProducts(totalProducts + 10) ;
-    setLoading(!loading);
-  }
-  useEffect(() => {
-    loadingtimeou();
-  }, [loading])
   useEffect(() => {
     apiFatch();
   }, [slug, totalProducts, FilterData])
@@ -54,12 +43,18 @@ export default function Products({ slug, FilterData }) {
       <div className="xl:col-span-5 mx-2 md:col-span-4 col-span-6 my-[70px]">
         <div className='mx-2 text-2xl my-7'>Total Products : {allProducts.length}</div>
         <div className="grid xxl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-2 xl:gap-7">
-          {
+          {loading ?
             allProducts.map((item, index) => {
-              return (
-                loading ? <ProductCard key={index} item={item} /> : <LoadingProduct key={index} />
+              return(
+                <ProductCard key={index} item={item} />
               )
-            })
+            }):
+            [...Array(10)].map((item, index) => {
+              return(
+                <LoadingProduct key={index} />
+              )
+            } 
+          )
           }
         </div>
         <div className="mx-auto w-max">

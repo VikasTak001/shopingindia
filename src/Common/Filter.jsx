@@ -2,9 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Filter({ linkSlug, FilterData, setFilterData }) {
+export default function Filter({ linkSlug, FilterData, setFilterData, loading, setLoading }) {
   const [cat, setCat] = useState([]);
-  const [loading, setLoading] = useState(false);
   const apiFatch = () => {
     axios.get("https://dummyjson.com/products/categories").then(
       (res) => {
@@ -15,14 +14,19 @@ export default function Filter({ linkSlug, FilterData, setFilterData }) {
     })
   }
   const FpriceTo = (event) => {
-    setFilterData({ ...FilterData, priceTo: event.target.value })
+    if (event.target.value >= 0) {
+      setFilterData({ ...FilterData, priceTo: event.target.value })
+    }
   }
   const FpriceFrom = (event) => {
-    setFilterData({ ...FilterData, priceFrom: event.target.value })
+    if (event.target.value >= 0) {
+      setFilterData({ ...FilterData, priceFrom: event.target.value })
+    }
   }
   useEffect(() => {
     apiFatch();
-  }, [])
+    setLoading(!loading);
+  }, [FilterData])
   return (
     <div className="p-5 xl:col-span-1 md:col-span-2 col-span-6">
       <div className="text-2xl py-4 border-t border-[#00000065]">Filter By Rating</div>
@@ -68,17 +72,17 @@ export default function Filter({ linkSlug, FilterData, setFilterData }) {
       <div className="text-2xl py-4">Filter By Categories</div>
       <div className="my-5 flex flex-wrap gap-2 md:block border-b border-[#ffffff65]">
         <Link to={`/shop`}>
-          <div className={`py-3 rounded-lg px-5 border-2 cursor-pointer btn-changer w-max md:w-auto md:my-4 transition-all duration-300 ease-in-out ${linkSlug === undefined ? 'bg-blue-500 border-blue-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95' : 'bg-[#ffffff] border-[#00000042] hover:bg-[#d4d4d475] hover:border-[#0000006b] hover:scale-105 active:scale-95 hover:shadow-md'}`}>
+          <button onClick={() => setLoading(!loading)} disabled={linkSlug == undefined ? true : false} className={`py-3 rounded-lg px-5 border-2 cursor-pointer btn-changer w-full text-left  md:my-4 transition-all duration-300 ease-in-out ${linkSlug === undefined ? 'bg-blue-500 border-blue-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95' : 'bg-[#ffffff] border-[#00000042] hover:bg-[#d4d4d475] hover:border-[#0000006b] hover:scale-105 active:scale-95 hover:shadow-md'}`}>
             All items
-          </div>
+          </button>
 
         </Link>
         {cat.map((item, index) => {
           return (
             <Link to={`/shop/${item.slug}`} key={index}>
-              <div className={`py-3 rounded-lg px-5 border-2 cursor-pointer btn-changer md:my-4 w-max md:w-auto transition-all duration-300 ease-in-out ${linkSlug === item.slug ? 'bg-blue-500 border-blue-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95' : 'bg-[#ffffff] border-[#00000042] hover:bg-[#d4d4d475] hover:border-[#0000006b] hover:scale-105 active:scale-95 hover:shadow-md'}`}>
+              <button onClick={() => setLoading(!loading)} id='btn' disabled={linkSlug === item.slug ? true : false} className={`py-3 rounded-lg px-5 border-2 cursor-pointer btn-changer md:my-4 w-full text-left transition-all duration-300 ease-in-out ${linkSlug === item.slug ? 'bg-blue-500 border-blue-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95' : 'bg-[#ffffff] border-[#00000042] hover:bg-[#d4d4d475] hover:border-[#0000006b] hover:scale-105 active:scale-95 hover:shadow-md'}`}>
                 {item.name}
-              </div>
+              </button>
             </Link>
           )
         })}
