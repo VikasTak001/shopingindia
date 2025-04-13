@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import Filter from './Filter';
 
 export default function Products({ slug, FilterData,loading,setLoading }) {
   const [allProducts, setAllProducts] = useState([]);
@@ -91,16 +90,16 @@ const ProductCard = ({ item }) => {
         </div>
         <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
         <p className="mb-1 text-2xl">
-          Price: <span className="text-white">${item.price}</span>
+          Price: <span className="text-[#000000]">${item.price}</span>
         </p>
         <p className=" mb-1">
           Rating: <span className="text-orange-500">{item.rating}/5</span>
         </p>
         <p className=" mb-1">
-          Category: <span className="text-white">{item.category}</span>
+          Category: <span className="text-[#000000]">{item.category}</span>
         </p>
         <p className="">
-          Brand: <span className="text-white">{item.brand}</span>
+          Brand: <span className="text-[#000000]">{item.brand}</span>
         </p>
       </Link>
       <button className="rounded-lg px-4 py-2 mt-4 shadow-lg bg-blue-500 transition-all text-white duration-300 hover:bg-blue-600 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-0 active:shadow-md">
