@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { Context } from '../MainContext';
 
 export default function Products({ slug, FilterData,loading,setLoading }) {
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(10);
   const [allProductsofApi, setAllProductsofApi] = useState();
+  const{cart,setCart} = useContext(Context);
   let apiUrl;
   if (slug !== undefined) {
     apiUrl = `https://dummyjson.com/products/category/${slug}?limit=${totalProducts}`;
@@ -45,7 +47,7 @@ export default function Products({ slug, FilterData,loading,setLoading }) {
           {loading ?
             allProducts.map((item, index) => {
               return(
-                <ProductCard key={index} item={item} />
+                <ProductCard key={index} item={item} setCart={setCart} cart={cart} />
               )
             }):
             [...Array(10)].map((item, index) => {
@@ -76,7 +78,7 @@ export default function Products({ slug, FilterData,loading,setLoading }) {
     </>
   )
 }
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item ,setCart,cart}) => {
   return (
 
     <div className="bg-[#ffffff] overflow-hidden rounded-2xl p-4 border flex flex-col justify-between h-[max] shadow-xl transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1">
@@ -102,7 +104,7 @@ const ProductCard = ({ item }) => {
           Brand: <span className="text-[#000000]">{item.brand}</span>
         </p>
       </Link>
-      <button className="rounded-lg px-4 py-2 mt-4 shadow-lg bg-blue-500 transition-all text-white duration-300 hover:bg-blue-600 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-0 active:shadow-md">
+      <button onClick={() => setCart(cart + 1)} className="rounded-lg px-4 py-2 mt-4 shadow-lg bg-blue-500 transition-all text-white duration-300 hover:bg-blue-600 hover:shadow-xl hover:translate-y-[-2px] active:translate-y-0 active:shadow-md">
         Add Cart
       </button>
     </div>

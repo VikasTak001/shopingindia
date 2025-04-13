@@ -6,6 +6,8 @@ import Contact from './Page/Contact'
 import About from './Page/About'
 import Shop from './Page/Shop'
 import Productdetails from './Common/Productdetails'
+import MainContext from './MainContext'
+import Cart from './Page/Cart'
 
 export default function App() {
   const routes = createBrowserRouter(
@@ -20,29 +22,35 @@ export default function App() {
           },
           {
             path: "/shop/:slug?",
-            element: <Shop/>
+            element: <Shop />
           },
           {
             path: "/about",
-            element: <About/>
+            element: <About />
           },
           {
             path: "/contact",
-            element: <Contact/>
+            element: <Contact />
           },
           {
-            path:"/productdetails/:id",
-            element:<Productdetails />
+            path: "/productdetails/:id",
+            element: <Productdetails />
+          },
+          {
+            path: "/cart",
+            element: <Cart/>
           }
         ]
       }
-    ],{
-      basename: "/shopingindia"
-    }
+    ], {
+    basename: "/shopingindia"
+  }
   )
   return (
     <>
-      <RouterProvider router={routes}/>
+      <MainContext>
+        <RouterProvider router={routes} />
+      </MainContext>
     </>
   )
 }
