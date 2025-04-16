@@ -62,9 +62,9 @@ export default function Header() {
                     />
                   </svg>
 
-                  {cart > 0 && (
+                  {cart.length > 0 && (
                     <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full shadow-sm">
-                      {cart}
+                      {cart.length}
                     </span>
                   )}
                 </div>
@@ -74,7 +74,7 @@ export default function Header() {
             <button
               className="relative bg-red-500 text-white font-semibold py-2 px-4 rounded-2xl shadow-md hover:bg-red-600 hover:scale-105 transition-transform duration-200 ease-in-out flex items-center gap-2"
               onClick={() => {
-                setCart(0);
+                setCart([]);
               }}
             >
               Clear Cart

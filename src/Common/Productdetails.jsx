@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { Context } from '../MainContext';
 
 export default function Productdetails() {
     const { id } = useParams();
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
+    const { cart, setCart } = useContext(Context);
     axios.get(`https://dummyjson.com/products/${id}`).then((res) => {
         setProduct(res.data);
     }).catch((err) => {
@@ -18,10 +20,23 @@ export default function Productdetails() {
         }, 1500
     )
     return (
-        loading ? <Card product={product} image={image} setImage={setImage} /> : <LoadingCard />
+        loading ? <Card product={product} image={image} setImage={setImage} cart={cart} setCart={setCart} /> : <LoadingCard />
     )
 }
-const Card = ({ product, image, setImage }) => {
+const Card = ({ product, image, setImage, cart, setCart }) => {
+    const addToCart = () => {
+        const { id, title, thumbnail, price, category, brand, discription } = product
+        const data = { id, title, thumbnail, price, category, brand, quantity: 1 };
+        const matchProducts = cart.filter(
+            (cartIt, cartIn) => {
+                return cartIt.id == data.id;
+            }
+        )
+        if (matchProducts.length == 0) {
+            const FinalData = [data, ...cart];
+            setCart(FinalData);
+        }
+    }
     return (
         <>
             <div className="max-w-6xl my-2 md:my-10 mx-3 md:mx-auto bg-white p-8 rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-gray-400">
@@ -68,7 +83,7 @@ const Card = ({ product, image, setImage }) => {
                         <p className="text-gray-700 mb-6 leading-relaxed">
                             {product.description}
                         </p>
-                        <button className="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-blue-500/50">
+                        <button onClick={addToCart} className="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-blue-500/50">
                             🛒 Add to Cart
                         </button>
                     </div>
